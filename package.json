@@ -1,0 +1,29 @@
+{
+  "name": "protobuf-to-typescript",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "preinstall": "node preinstall.mjs",
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "lodash": "^4.17.21",
+    "next": "14.0.2",
+    "react": "^18",
+    "react-dom": "^18",
+    "ts-proto": "^1.164.0",
+    "uuid": "^9.0.1",
+    "zx": "^7.2.3"
+  },
+  "devDependencies": {
+    "@types/lodash": "^4.14.201",
+    "@types/node": "^20",
+    "@types/react": "^18",
+    "@types/react-dom": "^18",
+    "@types/uuid": "^9.0.7",
+    "typescript": "^5.0.2"
+  }
+}
