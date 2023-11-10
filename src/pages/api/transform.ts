@@ -71,10 +71,10 @@ async function transform(
   const id = uuidv4();
 
   // 生成临时文件的路径
-  const tempPath = path.resolve("./tmp");
-  const inputProtoFilePath = path.resolve("./tmp", `${id}.proto`);
-  const outputTSFilePath = path.resolve("./tmp", `${id}.ts`);
-  const outputDTSFilePath = path.resolve("./tmp", `${id}.d.ts`);
+  const tempPath = path.resolve("/tmp/protobuf_to_typescript");
+  const inputProtoFilePath = path.resolve(tempPath, `${id}.proto`);
+  const outputTSFilePath = path.resolve(tempPath, `${id}.ts`);
+  const outputDTSFilePath = path.resolve(tempPath, `${id}.d.ts`);
 
   try {
     // 替换namespace
