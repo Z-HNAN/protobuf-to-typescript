@@ -6,7 +6,7 @@ import { $ } from "zx";
 import { v4 as uuidv4 } from "uuid";
 import _ from 'lodash';
 
-import 'ts-proto'; // trick keep install ts-proto
+import(/* webpackInclude: /ts-proto/ */ 'ts-proto'); // trick keep install ts-proto
 
 const protocBin = process.env.NODE_ENV === 'development'
   ? path.resolve(process.cwd(), './bin', require('../../../bin/protoc')) // DEV bin/protoc....
