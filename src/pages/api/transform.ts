@@ -6,10 +6,12 @@ import { $ } from "zx";
 import { v4 as uuidv4 } from "uuid";
 import _ from 'lodash';
 
+import 'ts-proto';
+
 const protocBin = process.env.NODE_ENV === 'development'
   ? path.resolve(process.cwd(), './bin', require('../../../bin/protoc')) // DEV bin/protoc....
   : path.resolve(process.cwd(), '.next/server/chunks/bin/protoc'); // BUILD .next/server/bin/protoc
-const tsProtoBin = require('../../../bin/ts-protoc');
+const tsProtocBin = path.resolve(process.cwd(), './node_modules/.bin/protoc-gen-ts_proto');
 
 enum STATUS_CODE {
   FAILURE = -1,
@@ -100,7 +102,7 @@ async function transform(
     fs.writeFileSync(inputProtoFilePath, preContent + protoContent);
 
     // 1.proto -> ts
-    await $`${protocBin} --plugin=protoc-gen-ts=${tsProtoBin} -I=${tempPath} --ts_out=${tempPath}  ${inputProtoFilePath}`;
+    await $`${protocBin} --plugin=protoc-gen-ts=${tsProtocBin} -I=${tempPath} --ts_out=${tempPath}  ${inputProtoFilePath}`;
     // 2.保留 interface, enum
     fs.writeFileSync(
       outputTSFilePath,
