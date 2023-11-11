@@ -39,14 +39,6 @@ export type Data = {
   duration?: number;
 };
 
-function extractInterfacesAndEnums(tsContent: string) {
-  // 定义用于匹配 interface 和 enum 的正则表达式
-  const regex = /((export\s+)?(interface|enum)\s+[\w\d_]+\s*{[^}]*})/gs;
-  const matches = tsContent.match(regex);
-
-  return matches ? matches.join("\n\n") : "";
-}
-
 function escapeRegExp(string: string) {
   // 使用正则表达式替换特殊字符
   return string.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
@@ -108,12 +100,7 @@ async function transform(
     fs.writeFileSync(inputProtoFilePath, preContent + protoContent);
 
     // 1.proto -> ts
-    await $`${protocBin} --plugin=protoc-gen-ts=${tsProtoBin} -I=${tempPath} --ts_out=${tempPath}  ${inputProtoFilePath}`;
-    // 2.保留 interface, enum
-    fs.writeFileSync(
-      outputTSFilePath,
-      extractInterfacesAndEnums(fs.readFileSync(outputTSFilePath, "utf8"))
-    );
+    await $`${protocBin} --plugin=protoc-gen-ts=${tsProtoBin} --ts_opt=onlyTypes=true --ts_opt=exportCommonSymbols=false --ts_opt=unrecognizedEnum=false --ts_opt=snakeToCamel=false -I=${tempPath} --ts_out=${tempPath} ${inputProtoFilePath}`;
     // 读取并返回转换后的内容
     return fs.readFileSync(outputTSFilePath, "utf8");
   } catch (err) {
