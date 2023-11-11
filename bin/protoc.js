@@ -31,4 +31,4 @@ function getProtocFilename() {
   }
 }
 
-module.exports = path.resolve(process.cwd(), './bin', getProtocFilename())
+module.exports = path.resolve(__dirname, getProtocFilename())
