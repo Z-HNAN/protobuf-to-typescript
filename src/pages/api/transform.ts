@@ -5,7 +5,10 @@ import fs from "node:fs";
 import { $ } from "zx";
 import { v4 as uuidv4 } from "uuid";
 import _ from 'lodash';
-import protoc from '../../../bin/protoc';
+
+const protocBin = process.env.NODE_ENV === 'development'
+  ? require('../../../bin/protoc') // DEV bin/protoc....
+  :  path.resolve(__filename, '../../bin/protoc'); // BUILD .next/server/bin/protoc
 
 enum STATUS_CODE {
   FAILURE = -1,
@@ -71,7 +74,7 @@ async function transform(
   const id = uuidv4();
 
   // 生成临时文件的路径
-  const tempPath = path.resolve("/tmp/protobuf_to_typescript");
+  const tempPath = path.resolve(process.env.EXECUTE_TEMP_DIR || './temp');
   const inputProtoFilePath = path.resolve(tempPath, `${id}.proto`);
   const outputTSFilePath = path.resolve(tempPath, `${id}.ts`);
   const outputDTSFilePath = path.resolve(tempPath, `${id}.d.ts`);
@@ -97,7 +100,7 @@ async function transform(
     fs.writeFileSync(inputProtoFilePath, preContent + protoContent);
 
     // 1.proto -> ts
-    await $`${protoc} --plugin=protoc-gen-ts=${path.resolve(process.cwd(), './node_modules/.bin/protoc-gen-ts_proto')} -I=${tempPath} --ts_out=${tempPath}  ${inputProtoFilePath}`;
+    await $`${protocBin} --plugin=protoc-gen-ts=${path.resolve(process.cwd(), './node_modules/.bin/protoc-gen-ts_proto')} -I=${tempPath} --ts_out=${tempPath}  ${inputProtoFilePath}`;
     // 2.保留 interface, enum
     fs.writeFileSync(
       outputTSFilePath,

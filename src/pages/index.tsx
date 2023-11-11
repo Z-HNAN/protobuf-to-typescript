@@ -65,7 +65,7 @@ export default function Home() {
       dtsRef.current.value = data.dts_code || '';
       setRequestTip(['tip', `success use ${data.duration} ms`])
     } else if (data.status_code === STATUS_CODE.CAN_FIX_REPLACE_NAMESPACE) {
-      setRequestTip(['warn', 'no exist namespace, please input or use default']);
+      setRequestTip(['warn', 'no exist namespace, please input or use default try again']);
       replaceNamespaceRef.current && (replaceNamespaceRef.current.value = JSON.stringify(data.fix_suggest?.replace_namespace) || '');
     } else {
       setRequestTip(['error', data.error || '']);
