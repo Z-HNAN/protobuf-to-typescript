@@ -79,7 +79,6 @@ async function transform(
   const tempPath = path.resolve(process.env.EXECUTE_TEMP_DIR || './temp');
   const inputProtoFilePath = path.resolve(tempPath, `${id}.proto`);
   const outputTSFilePath = path.resolve(tempPath, `${id}.ts`);
-  const outputDTSFilePath = path.resolve(tempPath, `${id}.d.ts`);
 
   try {
     // 替换namespace
@@ -108,8 +107,6 @@ async function transform(
       outputTSFilePath,
       extractInterfacesAndEnums(fs.readFileSync(outputTSFilePath, "utf8"))
     );
-    // 3.ts -> .d.ts
-    await $`pnpm tsc --declaration true --emitDeclarationOnly true --noEmitOnError false ${outputTSFilePath}`;
     // 读取并返回转换后的内容
     return fs.readFileSync(outputTSFilePath, "utf8");
   } catch (err) {
@@ -117,7 +114,6 @@ async function transform(
   } finally {
     fs.existsSync(inputProtoFilePath) && fs.unlinkSync(inputProtoFilePath);
     fs.existsSync(outputTSFilePath) && fs.unlinkSync(outputTSFilePath);
-    fs.existsSync(outputDTSFilePath) && fs.unlinkSync(outputDTSFilePath);
   }
 }
 
