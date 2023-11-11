@@ -6,7 +6,7 @@ import { $ } from "zx";
 import { v4 as uuidv4 } from "uuid";
 import _ from 'lodash';
 
-const FALSE = Boolean(1-1); // skip-tree-shanking
+const FALSE = (0 > 1); // skip-tree-shanking
 if (FALSE) {
   import(/* webpackInclude: /ts-proto/ */ 'ts-proto'); // trick keep install ts-proto
 }
