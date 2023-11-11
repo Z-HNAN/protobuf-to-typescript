@@ -12,8 +12,8 @@ const nextConfig = {
         new CopyWebpackPlugin({
           patterns: [
             { 
-              from: require('./bin/protoc'),
-              to: path.resolve(__dirname, '.next/server/chunks/bin/protoc'),
+              from: path.resolve(process.cwd(), './bin', require('./bin/protoc')),
+              to: path.resolve(process.cwd(), '.next/server/chunks/bin/protoc'),
               toType: 'file',
             }
           ]

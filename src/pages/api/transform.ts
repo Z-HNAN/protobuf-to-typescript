@@ -6,9 +6,11 @@ import { $ } from "zx";
 import { v4 as uuidv4 } from "uuid";
 import _ from 'lodash';
 
+import 'ts-proto';
+
 const protocBin = process.env.NODE_ENV === 'development'
-  ? require('../../../bin/protoc') // DEV bin/protoc....
-  :  path.resolve(__filename, '../../../chunks/bin/protoc'); // BUILD .next/server/bin/protoc
+  ? path.resolve(process.cwd(), './bin', require('../../../bin/protoc')) // DEV bin/protoc....
+  : path.resolve(process.cwd(), '.next/server/chunks/bin/protoc'); // BUILD .next/server/bin/protoc
 
 enum STATUS_CODE {
   FAILURE = -1,
