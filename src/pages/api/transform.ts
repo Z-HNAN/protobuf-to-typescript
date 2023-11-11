@@ -8,7 +8,7 @@ import _ from 'lodash';
 
 const protocBin = process.env.NODE_ENV === 'development'
   ? require('../../../bin/protoc') // DEV bin/protoc....
-  :  path.resolve(__filename, '../../../bin/protoc'); // BUILD .next/server/bin/protoc
+  :  path.resolve(__filename, '../../../chunks/bin/protoc'); // BUILD .next/server/bin/protoc
 
 enum STATUS_CODE {
   FAILURE = -1,

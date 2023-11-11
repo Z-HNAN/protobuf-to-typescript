@@ -13,7 +13,7 @@ const nextConfig = {
           patterns: [
             { 
               from: require('./bin/protoc'),
-              to: 'bin/protoc',
+              to: path.resolve(__dirname, '.next/server/chunks/bin/protoc'),
               toType: 'file',
             }
           ]
@@ -21,7 +21,7 @@ const nextConfig = {
         new PermissionsOutputPlugin({
           buildFiles: [
             {
-              path: path.resolve(__dirname, '.next/server/bin/protoc'),
+              path: path.resolve(__dirname, '.next/server/chunks/bin/protoc'),
               fileMode: '755'
             }
           ]
