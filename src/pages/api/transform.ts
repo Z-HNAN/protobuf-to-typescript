@@ -5,8 +5,7 @@ import fs from "node:fs";
 import { $ } from "zx";
 import { v4 as uuidv4 } from "uuid";
 import _ from 'lodash';
-
-import 'ts-proto';
+import 'ts-proto/package.json';
 
 const protocBin = process.env.NODE_ENV === 'development'
   ? path.resolve(process.cwd(), './bin', require('../../../bin/protoc')) // DEV bin/protoc....
