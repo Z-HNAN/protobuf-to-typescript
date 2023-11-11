@@ -13,7 +13,7 @@ const nextConfig = {
           patterns: [
             { 
               from: require('./bin/protoc'),
-              to: path.resolve(__dirname, '.next/server/bin/protoc'),
+              to: 'bin/protoc',
               toType: 'file',
             }
           ]
