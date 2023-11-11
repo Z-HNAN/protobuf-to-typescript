@@ -15,6 +15,11 @@ const nextConfig = {
               from: path.resolve(process.cwd(), './bin', require('./bin/protoc')),
               to: path.resolve(process.cwd(), '.next/server/chunks/bin/protoc'),
               toType: 'file',
+            },
+            { 
+              from: path.resolve(process.cwd(), './bin', require('./bin/ts-proto')),
+              to: path.resolve(process.cwd(), '.next/server/chunks/bin/ts-proto'),
+              toType: 'file',
             }
           ]
         }),
@@ -22,6 +27,10 @@ const nextConfig = {
           buildFiles: [
             {
               path: path.resolve(__dirname, '.next/server/chunks/bin/protoc'),
+              fileMode: '755'
+            },
+            {
+              path: path.resolve(__dirname, '.next/server/chunks/bin/ts-proto'),
               fileMode: '755'
             }
           ]
