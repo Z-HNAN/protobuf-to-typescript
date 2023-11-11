@@ -25,7 +25,7 @@ const nextConfig = {
               fileMode: '755'
             }
           ]
-        })
+        }),
       );
     }
     return config;
